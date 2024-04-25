@@ -1,5 +1,6 @@
 package dev.xkmc.l2library.serial.advancements;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
@@ -76,24 +77,27 @@ public class CriterionBuilder implements IAdvBuilder {
 	}
 
 	private final RequirementsStrategy req;
-	private final List<CriterionTriggerInstance> list = new ArrayList<>();
+	private final List<Pair<String, CriterionTriggerInstance>> list = new ArrayList<>();
 
 	private CriterionBuilder(RequirementsStrategy req) {
 		this.req = req;
 	}
 
 	public CriterionBuilder add(CriterionTriggerInstance instance) {
-		list.add(instance);
+		return add(list.size() + "", instance);
+	}
+
+	public CriterionBuilder add(String str, CriterionTriggerInstance instance) {
+		list.add(Pair.of(str, instance));
 		return this;
 	}
 
 	public void modify(String id, Advancement.Builder builder) {
-		int index = 0;
 		if (list.size() > 1) {
 			builder.requirements(req);
 		}
 		for (var c : list) {
-			builder.addCriterion((index++) + "", c);
+			builder.addCriterion(c.getFirst(), c.getSecond());
 		}
 	}
 

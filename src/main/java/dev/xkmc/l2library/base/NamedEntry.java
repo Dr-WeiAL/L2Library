@@ -6,13 +6,12 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 public class NamedEntry<T extends NamedEntry<T>> {
 
 	private final L2Registrate.RegistryInstance<T> registry;
 
 	private String desc = null;
+	private ResourceLocation idCache;
 
 	public NamedEntry(L2Registrate.RegistryInstance<T> registry) {
 		this.registry = registry;
@@ -31,8 +30,13 @@ public class NamedEntry<T extends NamedEntry<T>> {
 		return Component.translatable(getDescriptionId());
 	}
 
+
 	public ResourceLocation getRegistryName() {
-		return Objects.requireNonNull(registry.get().getKey(getThis()));
+		if (idCache == null) {
+			idCache = registry.get().getKey(getThis());
+			assert idCache != null;
+		}
+		return idCache;
 	}
 
 	public String getID() {

@@ -14,7 +14,7 @@ public class ScalePic {
 		//scale(16, "sonic_shooter");
 
 		//resize(64, 0,0,"iron");
-		scale(25, "curse_of_spell", "curse_of_spell");
+		scale(4, "bbq", "bbq");
 		//resize(18, 1,1,"moonwalk");
 	}
 

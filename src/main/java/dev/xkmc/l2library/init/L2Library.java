@@ -8,6 +8,7 @@ import dev.xkmc.l2library.capability.conditionals.ConditionalData;
 import dev.xkmc.l2library.capability.conditionals.TokenToClient;
 import dev.xkmc.l2library.capability.entity.GeneralCapabilityHolder;
 import dev.xkmc.l2library.capability.player.PlayerCapToClient;
+import dev.xkmc.l2library.init.data.L2TagGen;
 import dev.xkmc.l2library.init.events.GeneralEventHandler;
 import dev.xkmc.l2library.serial.conditions.*;
 import dev.xkmc.l2library.serial.config.ConfigTypeEntry;
@@ -65,6 +66,7 @@ public class L2Library {
 		L2LibraryConfig.init();
 		ConditionalData.register();
 		ClientEffectCap.register();
+		REGISTRATE.addDataGenerator(L2TagGen.EFF_TAGS, L2TagGen::onEffectTagGen);
 	}
 
 	@SubscribeEvent

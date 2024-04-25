@@ -2,6 +2,7 @@ package dev.xkmc.l2library.init.events;
 
 import dev.xkmc.l2library.base.effects.EffectToClient;
 import dev.xkmc.l2library.init.L2Library;
+import dev.xkmc.l2library.init.data.L2TagGen;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +10,7 @@ import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,11 +18,16 @@ import java.util.Set;
 @Mod.EventBusSubscriber(modid = L2Library.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EffectSyncEvents {
 
+	@Deprecated
 	public static final Set<MobEffect> TRACKED = new HashSet<>();
+
+	public static boolean tracked(MobEffect eff) {
+		return TRACKED.contains(eff) || ForgeRegistries.MOB_EFFECTS.tags().getTag(L2TagGen.TRACKED_EFFECTS).contains(eff);
+	}
 
 	@SubscribeEvent
 	public static void onPotionAddedEvent(MobEffectEvent.Added event) {
-		if (TRACKED.contains(event.getEffectInstance().getEffect())) {
+		if (tracked(event.getEffectInstance().getEffect())) {
 			onEffectAppear(event.getEffectInstance().getEffect(), event.getEntity(), event.getEffectInstance().getAmplifier());
 		}
 	}
@@ -28,7 +35,7 @@ public class EffectSyncEvents {
 
 	@SubscribeEvent
 	public static void onPotionRemoveEvent(MobEffectEvent.Remove event) {
-		if (event.getEffectInstance() != null && TRACKED.contains(event.getEffectInstance().getEffect())) {
+		if (event.getEffectInstance() != null && tracked(event.getEffectInstance().getEffect())) {
 			onEffectDisappear(event.getEffectInstance().getEffect(), event.getEntity());
 		}
 	}
@@ -36,7 +43,7 @@ public class EffectSyncEvents {
 
 	@SubscribeEvent
 	public static void onPotionExpiryEvent(MobEffectEvent.Expired event) {
-		if (event.getEffectInstance() != null && TRACKED.contains(event.getEffectInstance().getEffect())) {
+		if (event.getEffectInstance() != null && tracked(event.getEffectInstance().getEffect())) {
 			onEffectDisappear(event.getEffectInstance().getEffect(), event.getEntity());
 		}
 	}
@@ -46,7 +53,7 @@ public class EffectSyncEvents {
 		if (!(event.getTarget() instanceof LivingEntity le))
 			return;
 		for (MobEffect eff : le.getActiveEffectsMap().keySet()) {
-			if (TRACKED.contains(eff)) {
+			if (tracked(eff)) {
 				onEffectAppear(eff, le, le.getActiveEffectsMap().get(eff).getAmplifier());
 			}
 		}
@@ -57,7 +64,7 @@ public class EffectSyncEvents {
 		if (!(event.getTarget() instanceof LivingEntity le))
 			return;
 		for (MobEffect eff : le.getActiveEffectsMap().keySet()) {
-			if (TRACKED.contains(eff)) {
+			if (tracked(eff)) {
 				onEffectDisappear(eff, le);
 			}
 		}
@@ -68,7 +75,7 @@ public class EffectSyncEvents {
 		ServerPlayer e = (ServerPlayer) event.getEntity();
 		if (e != null) {
 			for (MobEffect eff : e.getActiveEffectsMap().keySet()) {
-				if (TRACKED.contains(eff)) {
+				if (tracked(eff)) {
 					onEffectAppear(eff, e, e.getActiveEffectsMap().get(eff).getAmplifier());
 				}
 			}
@@ -80,7 +87,7 @@ public class EffectSyncEvents {
 		ServerPlayer e = (ServerPlayer) event.getEntity();
 		if (e != null) {
 			for (MobEffect eff : e.getActiveEffectsMap().keySet()) {
-				if (TRACKED.contains(eff)) {
+				if (tracked(eff)) {
 					onEffectDisappear(eff, e);
 				}
 			}

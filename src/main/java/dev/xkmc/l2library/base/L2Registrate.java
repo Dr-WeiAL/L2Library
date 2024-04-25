@@ -39,11 +39,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class L2Registrate extends AbstractRegistrate<L2Registrate> {
-	/**
-	 * Construct a new Registrate for the given mod ID.
-	 *
-	 * @param modid The mod ID for which objects will be registered
-	 */
+
 	public L2Registrate(String modid) {
 		super(modid);
 		registerEventListeners(FMLJavaModLoadingContext.get().getModEventBus());
