@@ -93,6 +93,10 @@ public class ClientEffectRenderEvents {
 	@SubscribeEvent
 	public static void onLivingEntityRender(RenderLivingEvent.Post<?, ?> event) {
 		LivingEntity entity = event.getEntity();
+		onLivingRenderEvents(entity);
+	}
+
+	public static void onLivingRenderEvents(LivingEntity entity) {
 		if (!ClientEffectCap.HOLDER.isProper(entity)) return;
 		if (entity.getTags().contains("ClientOnly")) return;
 		ClientEffectCap cap = ClientEffectCap.HOLDER.get(entity);
@@ -128,7 +132,6 @@ public class ClientEffectRenderEvents {
 			int ix = i - iy * w;
 			ICONS.add(e.getSecond().resize(IconRenderRegion.of(w, ix, iy, iw, h)));
 		}
-
 	}
 
 	private static void renderIcon(PoseStack pose, MultiBufferSource buffer, DelayedEntityRender icon,

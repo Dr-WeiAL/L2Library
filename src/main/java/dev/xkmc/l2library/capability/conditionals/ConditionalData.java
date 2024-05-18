@@ -14,7 +14,6 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 @SerialClass
 public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
@@ -34,6 +33,9 @@ public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
 	@SerialClass.SerialField
 	public int tickSinceDeath = 0;
 
+
+	private HashMap<TokenKey<?>, ConditionalToken> copy = null;
+
 	@Override
 	public void onClone(boolean isWasDeath) {
 		tickSinceDeath = 0;
@@ -45,6 +47,12 @@ public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
 
 	@Nullable
 	public <T extends ConditionalToken> T getData(TokenKey<T> setEffect) {
+		if (copy != null) {
+			var ans = copy.get(setEffect);
+			if (ans != null) {
+				return Wrappers.cast(ans);
+			}
+		}
 		return Wrappers.cast(data.get(setEffect));
 	}
 
@@ -55,15 +63,16 @@ public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
 				tickSinceDeath < 60 && player.getHealth() < player.getMaxHealth()) {
 			player.setHealth(player.getMaxHealth());
 		}
-		var copy = data;
+		copy = data;
 		data = new HashMap<>();
 		copy.entrySet().removeIf(e -> e.getValue().tick(player));
 		copy.putAll(data);
 		data = copy;
+		copy = null;
 	}
 
 	public boolean hasData(TokenKey<?> eff) {
-		return data.containsKey(eff);
+		return copy != null && copy.containsKey(eff) || data.containsKey(eff);
 	}
 
 }

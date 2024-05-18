@@ -8,6 +8,7 @@ import dev.xkmc.l2library.capability.conditionals.ConditionalData;
 import dev.xkmc.l2library.capability.conditionals.TokenToClient;
 import dev.xkmc.l2library.capability.entity.GeneralCapabilityHolder;
 import dev.xkmc.l2library.capability.player.PlayerCapToClient;
+import dev.xkmc.l2library.compat.misc.GeckoLibEventHandlers;
 import dev.xkmc.l2library.init.data.L2TagGen;
 import dev.xkmc.l2library.init.events.GeneralEventHandler;
 import dev.xkmc.l2library.serial.conditions.*;
@@ -26,12 +27,14 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 import static net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT;
 import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
@@ -67,6 +70,9 @@ public class L2Library {
 		ConditionalData.register();
 		ClientEffectCap.register();
 		REGISTRATE.addDataGenerator(L2TagGen.EFF_TAGS, L2TagGen::onEffectTagGen);
+		if (ModList.get().isLoaded(GeckoLib.MOD_ID)) {
+			MinecraftForge.EVENT_BUS.register(GeckoLibEventHandlers.class);
+		}
 	}
 
 	@SubscribeEvent
