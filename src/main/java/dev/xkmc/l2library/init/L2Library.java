@@ -70,9 +70,6 @@ public class L2Library {
 		ConditionalData.register();
 		ClientEffectCap.register();
 		REGISTRATE.addDataGenerator(L2TagGen.EFF_TAGS, L2TagGen::onEffectTagGen);
-		if (ModList.get().isLoaded(GeckoLib.MOD_ID)) {
-			MinecraftForge.EVENT_BUS.register(GeckoLibEventHandlers.class);
-		}
 	}
 
 	@SubscribeEvent

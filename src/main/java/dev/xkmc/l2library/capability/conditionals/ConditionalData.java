@@ -41,12 +41,12 @@ public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
 		tickSinceDeath = 0;
 	}
 
-	public <T extends ConditionalToken, C extends Context> T getOrCreateData(TokenProvider<T, C> setEffect, C ent) {
+	public synchronized <T extends ConditionalToken, C extends Context> T getOrCreateData(TokenProvider<T, C> setEffect, C ent) {
 		return Wrappers.cast(data.computeIfAbsent(setEffect.getKey(), e -> setEffect.getData(ent)));
 	}
 
 	@Nullable
-	public <T extends ConditionalToken> T getData(TokenKey<T> setEffect) {
+	public synchronized <T extends ConditionalToken> T getData(TokenKey<T> setEffect) {
 		if (copy != null) {
 			var ans = copy.get(setEffect);
 			if (ans != null) {
@@ -57,7 +57,7 @@ public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
 	}
 
 	@Override
-	public void tick() {
+	public synchronized void tick() {
 		tickSinceDeath++;
 		if (L2LibraryConfig.COMMON.restoreFullHealthOnRespawn.get() &&
 				tickSinceDeath < 60 && player.getHealth() < player.getMaxHealth()) {
@@ -71,7 +71,7 @@ public class ConditionalData extends PlayerCapabilityTemplate<ConditionalData> {
 		copy = null;
 	}
 
-	public boolean hasData(TokenKey<?> eff) {
+	public synchronized boolean hasData(TokenKey<?> eff) {
 		return copy != null && copy.containsKey(eff) || data.containsKey(eff);
 	}
 

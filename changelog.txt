@@ -1,0 +1,30 @@
+2.4.28
+- Fix Curios compat for 5.9.x
+- Fix tab flashing when switching tabs
+- Fix slot name not displayed
+- Item Selector follows selection hold key bind
+- Make conditional data synchronized to prevent CME
+
+2.4.27
+- Fix GeckoLib model entity effect icon rendering
+
+2.4.25
+- Fix compatibility with Curios 5.8.x
+
+2.4.24
+- Fix a rare CME crash in Condtional Data
+
+2.4.23
+- Sync attribute name to client in multiplayer game
+- Config for hide individual tabs
+- Config for inventory tabs redirecting to vanilla inventory / curios inventory
+- Add config-based recipe conditions
+- Fix L2Artifact attribute name desync in multiplayer game
+- Allow pressing E to exit tab screens
+
+2.4.22
+- update L2Tabs for L2Complements
+
+2.4.21
+- add custom registry tag support to help L2Hostility
+- add Patchouli data gen
