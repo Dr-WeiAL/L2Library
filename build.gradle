@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.80'
+    id 'net.neoforged.gradle.userdev' version '7.0.145'
 }
 
 version = mod_version
@@ -17,7 +17,7 @@ base {
     archivesName = mod_id
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -84,12 +84,6 @@ tasks.withType(JavaCompile).configureEach {
 
 if (lljij.toBoolean()) jarJar.enable()
 
-/* TODO
-mixin {
-    add sourceSets.main, "${modid}.refmap.json"
-    config "${modid}.mixins.json"
-}*/
-
 jar {
     manifest {
         attributes([
@@ -153,6 +147,11 @@ repositories {
         name 'Progwml6 maven'
         url 'https://dvs1.progwml6.com/files/maven'
     }
+
+    maven {
+        name = "OctoStudios"
+        url = uri("https://maven.octo-studios.com/releases")
+    }
     mavenLocal();
 }
 
@@ -166,17 +165,22 @@ dependencies {
         jarJar.ranged(it, "[${l2serial_ver},)")
     }
 
+    implementation jarJar("dev.xkmc:l2core:${l2core_ver}") {
+        transitive = false
+        jarJar.ranged(it, "[${l2core_ver},)")
+    }
+
+    implementation jarJar("dev.xkmc:l2tabs:${l2tabs_ver}") {
+        transitive = false
+        jarJar.ranged(it, "[${l2tabs_ver},)")
+    }
+
+    implementation jarJar("dev.xkmc:l2menustacker:${l2menustacker_ver}") {
+        transitive = false
+        jarJar.ranged(it, "[${l2menustacker_ver},)")
+    }
+
     /*
-    implementation fg.deobf(jarJar("dev.xkmc.l2tabs:l2tabs:0.2.6")) {
-        transitive = false
-        jarJar.ranged(it, "[0.2.6,)")
-    }
-
-    implementation fg.deobf(jarJar("dev.xkmc.l2screentracker:l2screentracker:0.1.4")) {
-        transitive = false
-        jarJar.ranged(it, "[0.1.4,)")
-    }
-
     runtimeOnly fg.deobf(jarJar("dev.xkmc.l2modularblock:l2modularblock:1.1.0")) {
         transitive = false
         jarJar.ranged(it, "[1.1.0,)")
