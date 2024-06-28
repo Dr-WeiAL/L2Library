@@ -74,7 +74,7 @@ public class L2LibraryConfig {
 	private static void register(ModConfig.Type type, IConfigSpec<?> spec) {
 		var mod = ModLoadingContext.get().getActiveContainer();
 		String path = "l2_configs/" + mod.getModId() + "-" + type.extension() + ".toml";
-		ModLoadingContext.get().registerConfig(type, spec, path);
+		mod.registerConfig(type, spec, path);
 	}
 
 

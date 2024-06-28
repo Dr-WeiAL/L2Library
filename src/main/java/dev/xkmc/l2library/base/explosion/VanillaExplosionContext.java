@@ -25,11 +25,11 @@ public record VanillaExplosionContext(@Nullable Entity entity, @Nullable DamageS
 		return switch (type) {
 			case NONE -> Explosion.BlockInteraction.KEEP;
 			case BLOCK -> level.getDestroyType(GameRules.RULE_BLOCK_EXPLOSION_DROP_DECAY);
-			case MOB -> EventHooks.getMobGriefingEvent(level, entity instanceof LivingEntity le ? le : null) ?
+			case MOB -> EventHooks.canEntityGrief(level, entity instanceof LivingEntity le ? le : null) ?
 					level.getDestroyType(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY) :
 					Explosion.BlockInteraction.KEEP;
 			case TNT -> level.getDestroyType(GameRules.RULE_TNT_EXPLOSION_DROP_DECAY);
-			case BLOW -> Explosion.BlockInteraction.TRIGGER_BLOCK;
+			case TRIGGER -> Explosion.BlockInteraction.TRIGGER_BLOCK;
 		};
 	}
 

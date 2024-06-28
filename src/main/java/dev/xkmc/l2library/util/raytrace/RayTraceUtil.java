@@ -1,8 +1,8 @@
 package dev.xkmc.l2library.util.raytrace;
 
 import com.google.common.collect.Maps;
+import dev.xkmc.l2core.util.Proxy;
 import dev.xkmc.l2library.init.L2Library;
-import dev.xkmc.l2library.util.Proxy;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,7 +19,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Predicate;
@@ -60,12 +59,12 @@ public class RayTraceUtil {
 		return pos.add(f6 * reach, f5 * reach, f7 * reach);
 	}
 
-	public static void serverTick() {
+	public static void serverTick(MinecraftServer server) {
 		TARGET_MAP.entrySet().removeIf(e -> {
-			Optional<ServerPlayer> player = Proxy.getServer().map(MinecraftServer::getPlayerList).map(x -> x.getPlayer(e.getKey()));
-			if (player.isEmpty()) return true;
+			ServerPlayer player = server.getPlayerList().getPlayer(e.getKey());
+			if (player == null) return true;
 			ServerTarget target = e.getValue();
-			Entity entity = ((ServerLevel) (player.get().level())).getEntity(target.target);
+			Entity entity = player.serverLevel().getEntity(target.target);
 			if (entity == null || entity.isRemoved() || !entity.isAlive()) {
 				return true;
 			}

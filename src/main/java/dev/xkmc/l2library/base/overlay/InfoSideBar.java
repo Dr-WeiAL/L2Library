@@ -1,22 +1,22 @@
 package dev.xkmc.l2library.base.overlay;
 
 import dev.xkmc.l2library.init.L2LibraryConfig;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.List;
 
-public abstract class InfoSideBar<S extends SideBar.Signature<S>> extends SideBar<S> implements IGuiOverlay {
+public abstract class InfoSideBar<S extends SideBar.Signature<S>> extends SideBar<S> implements LayeredDraw.Layer {
 
 	public InfoSideBar(float duration, float ease) {
 		super(duration, ease);
 	}
 
 	@Override
-	public void render(ExtendedGui gui, GuiGraphics g, float partialTick, int width, int height) {
+	public void render(GuiGraphics g, DeltaTracker pt) {
 		if (!ease(gui.getGuiTicks() + partialTick))
 			return;
 		var text = getText();

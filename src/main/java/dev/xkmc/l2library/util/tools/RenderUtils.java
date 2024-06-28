@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.math;
+package dev.xkmc.l2library.util.tools;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

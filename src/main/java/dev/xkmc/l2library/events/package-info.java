@@ -1,7 +1,7 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 
-package dev.xkmc.l2library.compat.curios;
+package dev.xkmc.l2library.events;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

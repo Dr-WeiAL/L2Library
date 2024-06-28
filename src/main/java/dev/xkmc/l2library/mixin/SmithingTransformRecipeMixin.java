@@ -26,7 +26,7 @@ public class SmithingTransformRecipeMixin {
 
 	@Inject(at = @At("HEAD"), method = "isIncomplete", cancellable = true)
 	public void l2library$isIncomplete$fixJEI(CallbackInfoReturnable<Boolean> cir) {
-		cir.setReturnValue(Stream.of(this.base, this.addition).anyMatch(CommonHooks::hasNoElements));
+		cir.setReturnValue(Stream.of(this.base, this.addition).anyMatch(Ingredient::hasNoItems));
 	}
 
 }

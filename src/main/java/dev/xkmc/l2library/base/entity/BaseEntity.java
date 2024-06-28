@@ -1,14 +1,12 @@
 package dev.xkmc.l2library.base.entity;
 
-import dev.xkmc.l2serial.serialization.SerialClass;
 import dev.xkmc.l2serial.serialization.codec.PacketCodec;
 import dev.xkmc.l2serial.serialization.codec.TagCodec;
-import dev.xkmc.l2serial.util.Wrappers;
+import dev.xkmc.l2serial.serialization.marker.SerialClass;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -27,24 +25,24 @@ public abstract class BaseEntity extends Entity implements IEntityWithComplexSpa
 
 	@Override
 	protected void addAdditionalSaveData(CompoundTag tag) {
-		tag.put("auto-serial", TagCodec.toTag(new CompoundTag(), this));
+		var dat = new TagCodec(registryAccess()).toTag(new CompoundTag(), this);
+		if (dat != null) tag.put("auto-serial", dat);
 	}
 
 	@Override
 	protected void readAdditionalSaveData(CompoundTag tag) {
-		if (!tag.contains("auto-serial"))
-			return;
-		Wrappers.run(() -> TagCodec.fromTag(tag.getCompound("auto-serial"), this.getClass(), this, f -> true));
+		if (!tag.contains("auto-serial")) return;
+		new TagCodec(registryAccess()).fromTag(tag.getCompound("auto-serial"), this.getClass(), this);
 	}
 
 	@Override
-	public void writeSpawnData(FriendlyByteBuf buffer) {
+	public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
 		PacketCodec.to(buffer, this);
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public void readSpawnData(FriendlyByteBuf data) {
+	public void readSpawnData(RegistryFriendlyByteBuf data) {
 		PacketCodec.from(data, (Class) this.getClass(), this);
 	}
 

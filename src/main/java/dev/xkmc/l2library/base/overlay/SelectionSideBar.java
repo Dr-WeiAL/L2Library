@@ -4,13 +4,14 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.List;
 
-public abstract class SelectionSideBar<T, S extends SideBar.Signature<S>> extends SideBar<S> implements IGuiOverlay {
+public abstract class SelectionSideBar<T, S extends SideBar.Signature<S>> extends SideBar<S> implements LayeredDraw.Layer {
 
 	public SelectionSideBar(float duration, float ease) {
 		super(duration, ease);
@@ -25,6 +26,7 @@ public abstract class SelectionSideBar<T, S extends SideBar.Signature<S>> extend
 	public void initRender() {
 
 	}
+
 
 	@Override
 	public void render(ExtendedGui gui, GuiGraphics g, float partialTick, int width, int height) {

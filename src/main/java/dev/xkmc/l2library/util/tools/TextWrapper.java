@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.code;
+package dev.xkmc.l2library.util.tools;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;

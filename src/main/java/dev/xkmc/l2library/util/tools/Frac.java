@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.math;
+package dev.xkmc.l2library.util.tools;
 
 /**
  * represents a positive fraction
