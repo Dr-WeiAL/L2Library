@@ -1,5 +1,6 @@
 package dev.xkmc.l2library.mixin;
 
+import dev.xkmc.l2library.init.FlagMarker;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -23,8 +24,8 @@ public abstract class AbstractArrowMixin extends Projectile {
 
 	@Inject(at = @At("HEAD"), method = "tickDespawn")
 	public void l2library_tickDespawn_fastDespawn(CallbackInfo ci) {
-		if (getPersistentData().contains("DespawnFactor"))
-			life += getPersistentData().getInt("DespawnFactor") - 1;
+		if (getPersistentData().contains(FlagMarker.ARROW_DESPAWN))
+			life += getPersistentData().getInt(FlagMarker.ARROW_DESPAWN) - 1;
 	}
 
 }

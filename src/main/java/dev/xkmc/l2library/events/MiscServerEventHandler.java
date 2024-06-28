@@ -1,8 +1,8 @@
 package dev.xkmc.l2library.events;
 
-import dev.xkmc.l2library.base.explosion.BaseExplosion;
+import dev.xkmc.l2library.content.explosion.BaseExplosion;
 import dev.xkmc.l2library.init.L2Library;
-import dev.xkmc.l2library.util.raytrace.RayTraceUtil;
+import dev.xkmc.l2library.content.raytrace.RayTraceUtil;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.ExplosionEvent;

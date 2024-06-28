@@ -1,7 +1,7 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 
-package dev.xkmc.l2library.util.tools;
+package dev.xkmc.l2library.content.entity;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

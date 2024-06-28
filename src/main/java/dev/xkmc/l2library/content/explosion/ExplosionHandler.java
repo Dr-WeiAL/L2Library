@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.base.explosion;
+package dev.xkmc.l2library.content.explosion;
 
 import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.server.level.ServerPlayer;

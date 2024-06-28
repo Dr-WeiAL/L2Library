@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.raytrace;
+package dev.xkmc.l2library.content.raytrace;
 
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;

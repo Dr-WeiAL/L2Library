@@ -1,7 +1,7 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 
-package dev.xkmc.l2library.util.raytrace;
+package dev.xkmc.l2library.util;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

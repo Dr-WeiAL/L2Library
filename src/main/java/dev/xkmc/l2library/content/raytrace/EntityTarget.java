@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.raytrace;
+package dev.xkmc.l2library.content.raytrace;
 
 import dev.xkmc.l2core.util.Proxy;
 import net.minecraft.world.entity.Entity;

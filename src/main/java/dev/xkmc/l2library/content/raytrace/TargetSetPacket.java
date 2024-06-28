@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.raytrace;
+package dev.xkmc.l2library.content.raytrace;
 
 import dev.xkmc.l2serial.network.SerialPacketBase;
 import net.minecraft.world.entity.player.Player;

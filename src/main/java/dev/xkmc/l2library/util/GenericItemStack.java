@@ -1,4 +1,4 @@
-package dev.xkmc.l2library.util.tools;
+package dev.xkmc.l2library.util;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

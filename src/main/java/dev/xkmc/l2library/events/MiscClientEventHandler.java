@@ -1,7 +1,7 @@
 package dev.xkmc.l2library.events;
 
 import dev.xkmc.l2library.init.L2Library;
-import dev.xkmc.l2library.util.raytrace.EntityTarget;
+import dev.xkmc.l2library.content.raytrace.EntityTarget;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
