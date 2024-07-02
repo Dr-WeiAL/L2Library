@@ -59,7 +59,7 @@ tasks.withType(ProcessResources).configureEach {
     ]
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml']) {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties + [project: project]
     }
 }
@@ -80,6 +80,10 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+java {
+    withSourcesJar()
 }
 
 if (lljij.toBoolean()) jarJar.enable()
@@ -109,14 +113,6 @@ if (lljij.toBoolean()) {
         archiveClassifier.set('slim')
     }
 
-}
-
-dependencies {
-    //annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
-    //compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
-    if (rootMod.toBoolean()) {
-        //jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[MC1.20,MC1.21)")
-    }
 }
 
 // project specific
@@ -160,8 +156,9 @@ dependencies {
     implementation "mezz.jei:jei-${jei_minecraft_version}:${jei_version}"
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
+    implementation jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[${registrate_version},)")
     implementation jarJar(group: 'dev.xkmc', name: 'l2serial', version: "[${l2serial_ver},)")
-    implementation jarJar(group: 'dev.xkmc', name: 'l2modularblock', version: "[${l2modularblock_ver},)")
+    implementation jarJar(group: 'dev.xkmc', name: 'l2modularblocks', version: "[${l2modularblocks_ver},)")
     implementation jarJar(group: 'dev.xkmc', name: 'l2core', version: "[${l2core_ver},)")
     implementation jarJar(group: 'dev.xkmc', name: 'l2tabs', version: "[${l2tabs_ver},)")
     implementation jarJar(group: 'dev.xkmc', name: 'l2menustacker', version: "[${l2menustacker_ver},)")
