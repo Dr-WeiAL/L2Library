@@ -212,8 +212,8 @@ tasks.register('publishCurseForge', TaskPublishCurseForge) {
 modrinth {
     token = secrets.get("modrinth_token")
     projectId = project.modrinth_project
-    versionName = "L2 Library ${project.ll_version}"
-    versionNumber = project.ll_version
+    versionName = "L2 Library ${project.mod_version}"
+    versionNumber = project.mod_version
     versionType = "release"
     uploadFile = new File("./build/libs/${mod_id}-${mod_version}.jar")
     gameVersions = ["1.21"]
